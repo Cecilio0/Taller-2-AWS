@@ -31,4 +31,21 @@ public class RDSService implements IRDSService{
 	public void deleteById(Long id) {
 		blanketDAO.deleteById(id);
 	}
+	
+	@Override
+	public List<Blanket> findByType(String type) {
+		return blanketDAO.findByType(type);
+	}
+	
+	@Override
+	public List<Blanket> findByWidthCM(int widthCM) {
+		return blanketDAO.findByWidthCM(widthCM);
+	}
+	
+	@Override
+	public List<Blanket> findByHeightCM(int heightCM) {
+		return blanketDAO.findByHeightCM(heightCM);
+	}
+	
+	
 }
