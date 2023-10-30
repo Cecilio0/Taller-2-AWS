@@ -6,12 +6,17 @@ import java.util.List;
 
 public interface IRDSService {
 	
-	public Blanket save(Blanket blanket);
+	Blanket save(Blanket blanket);
 	
-	public Blanket findById(Long id);
+	Blanket findById(Long id);
 	
-	public List<Blanket> findAll();
+	List<Blanket> findAll();
 	
-	public void deleteById(Long id);
+	void deleteById(Long id);
 	
+	List<Blanket> findByType(String type);
+	
+	List<Blanket> findByWidthCM(int widthCM);
+	
+	List<Blanket> findByHeightCM(int heightCM);
 }

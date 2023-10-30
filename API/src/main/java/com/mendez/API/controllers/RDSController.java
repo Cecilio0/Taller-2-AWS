@@ -33,6 +33,21 @@ public class RDSController {
 		return new ResponseEntity<>(rs.findById(id), HttpStatus.OK);
 	}
 	
+	@GetMapping("/filter")
+	public ResponseEntity<List<Blanket>> filter(@RequestParam(required = false, name = "type") String type, @RequestParam(required = false, name = "widthCM") Integer widthCM, @RequestParam(required = false, name = "heightCM") Integer heightCM){
+		List<Blanket> blankets;
+		if (type != null){
+			blankets = rs.findByType(type);
+		} else if (widthCM != null) {
+			blankets = rs.findByWidthCM(widthCM);
+		} else if (heightCM != null) {
+			blankets = rs.findByHeightCM(heightCM);
+		} else {
+			blankets = rs.findAll();
+		}
+		return new ResponseEntity<>(blankets, HttpStatus.OK);
+	}
+	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteById(@PathVariable Long id){
 		rs.deleteById(id);
