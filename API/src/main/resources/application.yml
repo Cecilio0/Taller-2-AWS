@@ -34,6 +34,14 @@ spring:
       ddl-auto: update
     show-sql: true
 
+# Documentation
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /docs/swagger-ui.html
+
 # Application port
 server:
   port: ${PORT}
