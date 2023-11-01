@@ -1,0 +1,5 @@
+mangum
+fastapi
+pydantic
+psycopg2-binary
+boto3

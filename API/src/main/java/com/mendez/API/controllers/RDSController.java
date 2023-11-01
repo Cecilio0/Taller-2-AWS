@@ -34,7 +34,11 @@ public class RDSController {
 	}
 	
 	@GetMapping("/filter")
-	public ResponseEntity<List<Blanket>> filter(@RequestParam(required = false, name = "type") String type, @RequestParam(required = false, name = "widthCM") Integer widthCM, @RequestParam(required = false, name = "heightCM") Integer heightCM){
+	public ResponseEntity<List<Blanket>> filter(
+			@RequestParam(required = false, name = "type") String type, 
+			@RequestParam(required = false, name = "widthCM") Integer widthCM, 
+			@RequestParam(required = false, name = "heightCM") Integer heightCM
+		){
 		List<Blanket> blankets;
 		if (type != null){
 			blankets = rs.findByType(type);
