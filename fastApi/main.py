@@ -1,7 +1,7 @@
 # Para lambda
 # python3 -m venv venv
 # source venv/bin/activate
-# pip3 install -r requirements.txt
+# pip3 install fastapi uvicorn mangum
 # 1. pip3 install -t dependencies -r requirements.txt
 # 2. (cd dependencies; zip ../aws_lambda_artifact.zip -r .)
 # 3. zip aws_lambda_artifact.zip -u main.py
@@ -18,7 +18,7 @@ s3 = boto3.client('s3',
 bucket_name = ""
        
 conn = psycopg2.connect(database = "",
-                        user = "postgres",
+                        user = "",
                         host= '',
                         password = "",
                         port = 5432)
@@ -39,7 +39,6 @@ async def saveBlanket(blanket: Blanket):
     cur.execute("INSERT INTO blankets (id, type, widthCM, heightCM) VALUES (%s, %s, %s, %s)", (blanket.id, blanket.type, blanket.widthCM, blanket.heightCM))
     conn.commit()
     cur.close()
-    conn.close()
     return {"status": "ok"}
 
 @app.get("/rds/get")
@@ -49,7 +48,6 @@ async def getBlankets():
     rows = cur.fetchall()
     conn.commit()
     cur.close()
-    conn.close()
     return rows
 
 @app.post("/s3/save")
@@ -87,8 +85,7 @@ async def getBlanketsFilter(type: str | None = None, widthCM: int | None = None,
     rows = cur.fetchall()
     conn.commit()
     cur.close()
-    conn.close()
-    if rows == ():
+    if rows != []:
         return rows
     else: 
         return {"message": "No se encontro ningun elemento"}
