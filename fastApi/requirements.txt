@@ -2,4 +2,6 @@ mangum
 fastapi
 pydantic
 psycopg2-binary
+python-multipart
+uvicorn
 boto3

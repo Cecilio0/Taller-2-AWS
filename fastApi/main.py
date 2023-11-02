@@ -1,7 +1,7 @@
 # Para lambda
-# python -v venv venv
+# python3 -m venv venv
 # source venv/bin/activate
-# pip install fastapi uvicorn mangum
+# pip3 install -r requirements.txt
 # 1. pip3 install -t dependencies -r requirements.txt
 # 2. (cd dependencies; zip ../aws_lambda_artifact.zip -r .)
 # 3. zip aws_lambda_artifact.zip -u main.py
@@ -9,25 +9,23 @@ from mangum import Mangum
 from fastapi import FastAPI, UploadFile
 from pydantic import BaseModel
 import psycopg2
-import json
-import requests
 import boto3
-from datetime import datetime
 
-s3 = boto3.client('s3', 
+s3 = boto3.client('s3',
                   aws_access_key_id='',
                   aws_secret_access_key='')
-
+ 
 bucket_name = ""
-        
-conn = psycopg2.connect(database = "", 
-                        user = "", 
+       
+conn = psycopg2.connect(database = "",
+                        user = "postgres",
                         host= '',
                         password = "",
                         port = 5432)
 
 app=FastAPI()
 handler=Mangum(app)
+
 class Blanket(BaseModel):
     id: int
     type: str
@@ -95,3 +93,5 @@ async def getBlanketsFilter(type: str | None = None, widthCM: int | None = None,
     else: 
         return {"message": "No se encontro ningun elemento"}
     
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0" , port=8000)
